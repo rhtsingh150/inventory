@@ -1,0 +1,406 @@
+.header {
+    padding: 10px;
+    background: #879baa;
+}
+.logo img {
+    height: 50px;
+}
+.menu-item_div {
+    text-align: center;
+    height: 50px;
+}
+.menu-item {
+    line-height: 50px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #ffffff;
+    text-decoration: none;   
+}
+.menu-item:hover {
+    text-decoration: none;
+    color: #000000;
+}
+.container {
+    padding: 20px 10px;
+}
+.heading {
+    text-align: center;
+    transition: ease 1s all;
+}
+.heading h1 {
+    transition: ease 2s all;
+}
+.header-row {
+    width: 100%;
+    margin: auto;
+}
+.inventory-heading-col {
+    padding: 0px;
+}
+.nav-link {
+    color: black;
+    font-weight: 500;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: white;
+    background-color: #1b5c8f;
+    font-weight: 500;
+}
+.entrybox select {
+    width: 100%;
+    padding: 5px;
+}
+.entrybox input {
+    width: 100%;
+    border: 1px solid #c2c2c2;
+    padding: 5px;
+}
+.submit-btn input {
+    background: #1b5c8f;
+    color: white;
+    border: none;
+    padding: 5px 18px;
+    font-size: 18px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+.submit-btn {
+    text-align: center;
+    padding: 20px;
+}
+#addparts .row {
+    padding-bottom: 20px;
+}
+#consumeparts .row {
+    padding-bottom: 20px;
+}
+.profile-img{
+    text-align: center;
+}
+.navbar-light .navbar-toggler {
+    color: #ffffff;
+    border-color: rgba(0,0,0,.1);
+}
+button.navbar-toggler.toggler-example:focus {
+    outline: none;
+}
+.dimension-machine-row {
+    display: none;
+}
+.dimension-assembly-row {
+    display: none;
+}
+.dimension-parts-row {
+    display: none;
+}
+.immunoassay-machine-row {
+    display: none;
+}
+.immunoassay-assembly-row {
+    display: none;
+}
+.immunoassay-parts-row {
+    display: none;
+}
+.hematology-machine-row {
+    display: none;
+}
+.hematology-assembly-row {
+    display: none;
+}
+.hematology-parts-row {
+    display: none;
+}
+.edit-box {
+    display: none;
+}
+.technology-btn {
+    background-image: linear-gradient(rgba(135, 155, 170, 0.7), rgba(135, 155, 170, 0.7)), url(https://content-pep.siemens-info.com/CMS/Images/054461d6-2cf9-0520-3f0a-d33a6517dcc3.jpg);
+    border: 1px solid #999;
+    height: 150px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    background-size: cover;
+    line-height: 150px;
+    padding: 0 10px;
+    color: #ffffff;
+    font-weight: bold;
+    width: 100%;
+    outline: none;
+    max-width: 300px;
+    margin: auto;
+}
+.inventory {
+    margin: 30px 0px;
+    text-align: center;
+}
+
+.inventory select {
+    width: 100%;
+    max-width: 400px;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    height: 45px;
+}
+.inventory button {
+    background: #1b5c8f;
+    color: white;
+    border: none;
+    padding: 5px 18px;
+    font-size: 18px;
+    border-radius: 5px;
+    font-weight: 500;
+    outline: none;
+}
+.dimension-parts-row table {
+    margin: 10px 0px 20px 0px;
+}
+.immunoassay-parts-row table {
+    margin: 10px 0px 20px 0px;
+}
+.hematology-parts-row table {
+    margin: 10px 0px 20px 0px;
+}
+
+
+
+.btn-danger {
+    color: #fff !important;
+    background-color: #bd2130 !important;
+    border-color: #dc3545 !important;
+    border-radius: 0 !important;
+}
+.btn-success {
+    color: #fff !important;
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+    border-radius: 0 !important;
+}
+input.form-control.input-number {
+    margin: 0px 10px;
+}
+.bio-chemistry-inventory textarea {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid;
+}
+.immunoassay-inventory textarea {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid;
+}
+.hematology-inventory textarea {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid;
+}
+.edit-box-col {
+    margin: auto;
+}
+.technology-btn-col {
+    text-align: center;
+}
+.edit-box-col p {
+    font-weight: 500;
+}
+.heading-row {
+    padding: 30px;
+}
+.edit-box-col p {
+        margin-top: 30px;
+    }
+@media (max-width:767px) {
+    .mobile-menu{
+        display: block;
+    }
+    .header-row {
+        display: none;
+    }
+    .edit-box-col textarea {
+        margin-bottom: 30px;
+    }
+    .row.mobile-menu {
+        width: 100%;
+        margin: auto;
+    }
+    .row.heading-row {
+        width: 100%;
+        margin: auto;
+    }
+    .parts-technology-row {
+        width: 100%;
+        margin: auto;
+    }
+    .inventory-table-row {
+        width: 100%;
+        margin: auto;
+    }
+}
+@media (min-width:768px) {
+    .mobile-menu {
+        display: none;
+    }
+    .header-row {
+        display: flex;
+    }
+}
+
+.fa-1x {
+    font-size: 1.5rem;
+}
+.navbar-brand {
+    width: 80px;
+}
+.navbar-brand img {
+    width: 100%;
+}
+.form-control {
+    height: auto;
+}
+.close:focus {
+    outline: none;
+}
+.form-group {
+    text-align: left;
+}
+.addnew > .btn {
+    width: 100%;
+    text-align: center;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #1b5c8f;
+    border-color: #1b5c8f;
+}
+.btn-primary.focus, .btn-primary:focus {
+    color: #fff;
+    background-color: #1b5c8f;
+    border-color: #1b5c8f;
+    box-shadow: 0 0 0 0.2rem rgba(27, 92, 143, 0.49);
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #1b5c8f;
+    border-color: #1b5c8f;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link:focus {
+    color: #fff;
+    background-color: #1b5c8f;
+    border-color: #1b5c8f;
+    box-shadow: 0 0 0 0.2rem rgba(27, 92, 143, 0.49);
+}
+.submit-btn input:focus {
+    color: #fff;
+    background-color: #1b5c8f;
+    border-color: #1b5c8f;
+    box-shadow: 0 0 0 0.2rem rgba(27, 92, 143, 0.49);
+}
+.addparts-rows {
+    padding: 20px 0px;
+}
+.entrybox {
+    margin-bottom: 15px;
+}
+.requested-users-tr {
+    text-align: center;
+}
+.requested-users-tr button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.container-row {
+    padding: 15px;
+}
+#pills-tab {
+    margin-bottom: 40px !important;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #1b5c8f;
+    border-color: #1b5c8f;
+}
+
+.inventory-heading {
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+}
+.inventory-para {
+    text-align: center;
+    width: 100%;
+}
+
+  
+/*css for plus and minus table*/
+
+.parts-row .parts-new-col {
+    width: 20% !important;
+    overflow-wrap: break-word;
+    border: 1px solid;
+    padding: 10px 2px;
+    flex: unset;
+}
+.table-heading {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+.parts-customise > tr{
+    width: 100%;
+}
+.parts-customise{
+    width: 100%;
+}
+.parts-header-row {
+    background-color: #879baa;
+}
+.edit-box-col textarea {
+    width: 100%;
+}
+.table-heading-row th {
+    background-color: #879baa;
+    border: 1px solid #000000;
+}
+.table-contents-row td {
+    border: 1px solid #000000;
+}
+.table-contents {
+    text-align: center;
+}
+.table-heading {
+    text-align: center;
+}
+.fas.fa-check {
+    color: #28a745;
+}
+.fas.fa-times {
+    color: #bd2130;
+}
+.fas.fa-edit {
+    color: #879baa;
+}
+@media(max-width:768px) {
+    .table-heading {
+    font-weight: bold;
+    margin-top: 1rem;
+    font-size: 10px;
+}
+.table-contents {
+    font-size: 10px;
+}
+.table-heading-row th {
+    width: 20% !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: center;
+    overflow-wrap: break-word;
+}
+.table-contents-row td {
+    width: 20% !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: center;
+    overflow-wrap: break-word;
+}
+}

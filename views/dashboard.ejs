@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <title>SPC</title>
+</head>
+<body>
+    <div class="header">
+        <div class="row header-row">
+            <div class="col-sm-12 col-md-4 logo">
+                <a href="/"><img src="./images/spc-logo-png-1.png"></a>
+            </div>
+            <div class="col-sm-12 col-md-8 menu">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 menu-item_div">
+                        <a class="menu-item" href="/">Dashboard</a>
+                    </div>
+                    <div class="col-sm-12 col-md-3 menu-item_div">
+                        <a class="menu-item" href="./addandconsume.php">Add/Consume</a>
+                    </div>
+                    <div class="col-sm-12 col-md-3 menu-item_div">
+                        <a class="menu-item" href="./myaccount.php">My Account</a>
+                    </div>
+                    <div class="col-sm-12 col-md-3 menu-item_div">
+                        <a class="menu-item" href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mobile-menu">
+            <!--Navbar-->
+            <nav class="navbar navbar-light light-blue lighten-4">
+
+                <!-- Navbar brand -->
+                <a class="navbar-brand" href="/"><img src="./images/spc-logo-png-1.png"></a>
+
+                <!-- Collapse button -->
+                <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+                aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i
+                    class="fas fa-bars fa-1x"></i></span></button>
+
+                <!-- Collapsible content -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                    <a class="menu-item" href="/">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="menu-item" href="./addandconsume.php">Add/Consume</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="menu-item" href="./myaccount.php">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="menu-item" href="#">Logout</a>
+                    </li>
+                </ul>
+                <!-- Links -->
+
+                </div>
+                <!-- Collapsible content -->
+
+            </nav>
+            <!--/.Navbar-->
+        </div>
+    </div>
+    <div class="content">
+        <div class="container">
+        <div class="row heading-row">
+                <div class="col-md-12 heading-col">
+                    <h1 class="heading">WELCOME TO SPC</h1>
+                </div>
+            </div>
+            <div class="row parts-technology-row">
+                <div class="col-md-12">
+                    <div class="row" id="technology-container">
+                        <!-- technology appended here -->
+                    </div>
+                </div>
+            </div>
+            <div class="row inventory-table-row">
+                <h2 class="inventory-heading">Inventory</h2>
+                <p class="inventory-para">Type something in the input field to search the table for Machine, Assembly or Parts:</p>
+                <div class="col-md-12 inventory-heading-col table-responsive-sm">
+                    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr class="table-heading-row">
+                                <th class="table-heading">Sap Code</th>
+                                <th class="table-heading">Name</th>
+                                <th class="table-heading">Returnable</th>
+                                <th class="table-heading">Quantity</th>
+                                <th class="table-heading">Update Option</th>
+                            </tr>
+                            </thead>
+                            <tbody id="myTable">
+                               <!-- all parts appended here -->
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                    <p>Note that we start the search in tbody, to prevent filtering the table headers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer"></div>
+    
+    <div class="modal fade" id="updatepart" tabindex="-1" role="dialog" aria-labelledby="updatepartLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updatepartLabel">Update Parts</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <tr class="edit-box edit-box-1">
+                    <td colspan="3">
+                        <div  class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 edit-box-col">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-danger btn-number part-minus" data-partId=""  onclick="edit_quantity('-1')">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </span>
+                                            <input type="text" class="form-control input-number part-quantity" value="" min="0" max="100">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-success btn-number part-plus" data-partId="" onclick="edit_quantity('1')">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </span>
+                                        </div>  
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 edit-box-col">
+                                        <p>Add Comment</p>
+                                        <textarea rows="4" class="commentbox"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="save-btn" data-partId="" onclick="update_part_quantity()" class="btn btn-primary save-quantity">Save</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+<script>
+    $(document).ready(function(){
+        $.get('./api/all-technology').done((data) => {
+            data.forEach( tech => {
+                let tech_col = `<div class="col-md-12 technology-btn-col">
+                            <button class="technology-btn" onclick="load_machines(this)" value="` + tech.id + `">` + tech.name + `</button>
+                            <div class="inventory">
+                                <div class="row dimension-machine-row machine-row-`+ tech.id +`">
+                                    <!-- machines will be appended here -->
+                                </div>
+                                <div class="row dimension-assembly-row assembly-row-`+ tech.id +`">
+                                    <!-- assembly will be appended here -->
+                                </div>
+                                <div class="row dimension-parts-row parts-row-`+ tech.id +`">
+                                    <!-- parts will be appended here -->
+                                </div>
+                            </div>
+                        </div>`;
+                $('#technology-container').append(tech_col);
+                
+                
+            }); 
+        });
+    });
+    
+    $(document).ready(function(){
+        $.get('/api/all-parts').done((data) => {
+            data.forEach( part => {
+                let parts_structure = 
+                                    `<tr class="table-contents-row">
+                                        <td class="table-contents">` + part.sapcode + `</td>
+                                        <td class="table-contents">` + part.name + `</td>
+                                        <td class="table-contents">` + ( part.returnable ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>' ) + `</td>
+                                        <td class="table-contents">` + ( part.quantity ? part.quantity : 0 )  + `</td>
+                                        <td class="table-contents"><i type="button" class="fas fa-edit" onclick="toggle_edit_modal(`+ part.id +` , ` +  ( part.quantity ? part.quantity : 0 ) + `)"></i></td>
+                                    </tr>`;
+                $('#myTable').append(parts_structure);
+                
+                
+            }); 
+        });
+    });
+    
+    function load_machines(e) {
+        $('.dimension-machine-row').hide();
+        $('.dimension-assembly-row').hide();
+        $('.dimension-parts-row').hide();
+        $('.machine-row-' + e.value).show();
+        $.post('/api/machine' , {technologyId : e.value })
+        .done((data) => {
+            let machine_container = 
+            `<div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Select Machine</h2>
+                        <select id="machine-select-`+ e.value +`">`;
+                        data.forEach(machine => {
+                            machine_container += `<option value="`+ machine.id +`">` + machine.name + `</option>`;
+                        });
+                    
+            machine_container += `</select>
+                    </div>
+                </div>
+                <div class="row dimension-machine-next-button-row">
+                    <div class="col-md-12">
+                        <button onclick="load_parts(this)" value="`+ e.value +`">Next</button>
+                    </div>
+                </div>
+            </div>`;
+            
+            $('.machine-row-' + e.value).html(machine_container);
+        });
+        
+        
+    }
+    
+    function load_assembly(e) {
+        let machineID = $('#machine-select-' + e.value).val();
+        $.post('/api/assembly' , { machineId : machineID })
+        .done((data) => {
+            if(data.length){ 
+                $('.dimension-machine-row').hide();
+                $('.dimension-assembly-row').hide();
+                $('.dimension-parts-row').hide();
+                $('.assembly-row-' + e.value).show();
+            }
+            
+            let assembly_container = 
+            `<div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Select Assembly</h2>
+                        <select id="assembly-select-`+ e.value +`">`;
+                        data.forEach( assembly => {
+                            assembly_container += `<option value="`+ assembly.id +`">`+ assembly.name +`</option>`;
+                        });
+                                
+            assembly_container += `</select>
+                    </div>
+                </div>
+                <div class="row immunoassay-machine-next-button-row">
+                    <div class="col-md-12">
+                        <button onclick="load_parts(this)" value="`+ e.value +`">Next</button>
+                    </div>
+                </div>
+            </div>`;
+
+            $('.assembly-row-' + e.value).html(assembly_container);
+        });
+    }
+
+    function load_parts(e) {
+        let machineID = $('#machine-select-' + e.value).val();
+        $.post('/api/part' , { machineID : machineID })
+        .done((data) => {
+            if(data.length){ 
+                $('.dimension-machine-row').hide();
+                $('.dimension-assembly-row').hide();
+                $('.dimension-parts-row').hide();
+                $('.parts-row-' + e.value).show();
+            }
+            
+            let parts_container = 
+            `<div class="col-md-12">
+                <h2>Parts</h2>
+                <div id="parts-table-div" class="parts-table">
+                    <div class="row parts-row parts-header-row">
+                        <div class="col-xsm-4 col-md-4 parts-new-col">
+                            <p class="table-heading">SAP Code</p> 
+                        </div>
+                        <div class="col-xsm-4 col-md-4 parts-new-col">
+                            <p class="table-heading">Name</p> 
+                        </div>
+                        <div class="col-xsm-4 col-md-4 parts-new-col">
+                            <p class="table-heading">Returnable</p> 
+                        </div>
+                        <div class="col-xsm-4 col-md-4  parts-new-col">
+                            <p class="table-heading">Quantity Available</p>
+                        </div>
+                        <div class="col-xsm-4 col-md-4  parts-new-col">
+                            <p class="table-heading">Update Option</p>
+                        </div>
+                    </div>`;
+
+                    data.forEach( part => {
+                        parts_container += `
+                        <div class="row parts-row parts-content-row">
+                            <div class="col-xsm-4 col-md-4 parts-new-col">
+                                <p class="table-contents">` + part.sapcode + `</p> 
+                            </div>
+                            <div class="col-xsm-4 col-md-4 parts-new-col">
+                                <p class="table-contents">` + part.name + `</p> 
+                            </div>
+                            <div class="col-xsm-4 col-md-4 parts-new-col">
+                                <p class="table-contents">` + ( part.returnable ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>' ) + `</p> 
+                            </div>
+                            <div class="col-xsm-4 col-md-4  parts-new-col">
+                                <p class="table-contents">` + ( part.quantity ? part.quantity : 0 )  + `</p>
+                            </div>
+                            <div class="col-xsm-4 col-md-4  parts-new-col">
+                                <p class="table-contents"><i type="button" class="fas fa-edit" onclick="toggle_edit_modal(`+ part.id +` , ` +  ( part.quantity ? part.quantity : 0 ) + `)"></i></p>
+                            </div>
+                            <div class="parts-customise edit-box-`+ part.id +`" style="display:none;">
+                                <table class="table table-bordered table-striped">
+                                    <tbody id="immunoassay-pats-availability">
+                                        <tr class="edit-box edit-box-`+ part.id +`">
+                                            <td colspan="3">
+                                                <div  class="row">
+                                                    <div class="col-sm-12 col-md-4 edit-box-col">
+                                                        <div class="input-group">
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-danger btn-number"  onclick="edit_quantity('` + part.id + `' , '-1')">
+                                                                    <i class="fas fa-minus"></i>
+                                                                </button>
+                                                            </span>
+                                                            <input type="text" id="part-quantity-`+ part.id +`" class="form-control input-number" value="` + ( part.quantity ? part.quantity : 0 ) + `" min="0" max="100">
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-success btn-number" onclick="edit_quantity('` + part.id + `' , '1')">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div> 
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-4 edit-box-col">
+                                                        <p>Add Comment</p>
+                                                        <textarea rows="4" class='commentbox'></textarea>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-4 edit-box-col">
+                                                        <button class="save-quantity" data-partId="" onclick="update_part_quantity()">Save</button>
+                                                    </div>                                                                
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>`;
+                    });
+                    parts_container +=` 
+                </div>
+            </div>`;
+        
+            $('.parts-row-' + e.value).html(parts_container);
+        });
+    }
+</script>
+
+
+
+<script>
+    $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+    $("#myInput_2").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable-2 tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+    });
+</script>
+<script>
+$(document).ready(function(){
+  $("#bio-chemistry-btn").click(function(){
+    $(".immunoassay-machine-row").hide();
+    $(".immunoassay-assembly-row").hide();
+    $(".immunoassay-parts-row").hide();
+    $(".hematology-machine-row").hide();
+    $(".hematology-assembly-row").hide();
+    $(".hematology-parts-row").hide();
+    $(".dimension-parts-row").hide();
+    $(".edit-box").hide();
+    $(".dimension-machine-row").show();
+  });
+  $("#dimension-machine-next-btn").click(function(){
+    $(".dimension-machine-row").hide();
+    $(".dimension-assembly-row").show();
+  });
+  $("#dimension-assembly-next-btn").click(function(){
+    $(".dimension-machine-row").hide();
+    $(".dimension-assembly-row").hide();
+    $(".dimension-parts-row").show();
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  $("#immunoassay-btn").click(function(){
+    $(".dimension-machine-row").hide();
+    $(".dimension-assembly-row").hide();
+    $(".dimension-parts-row").hide();
+    $(".hematology-machine-row").hide();
+    $(".hematology-assembly-row").hide();
+    $(".hematology-parts-row").hide();
+    $(".immunoassay-parts-row").hide();
+    $(".edit-box").hide();
+    $(".immunoassay-machine-row").show();
+  });
+  $("#immunoassay-machine-next-btn").click(function(){
+    $(".immunoassay-machine-row").hide();
+    $(".immunoassay-assembly-row").show();
+  });
+  $("#immunoassay-assembly-next-btn").click(function(){
+    $(".immunoassay-machine-row").hide();
+    $(".immunoassay-assembly-row").hide();
+    $(".immunoassay-parts-row").show();
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  $("#hematology-btn").click(function(){
+    $(".dimension-machine-row").hide();
+    $(".dimension-assembly-row").hide();
+    $(".dimension-parts-row").hide();
+    $(".immunoassay-machine-row").hide();
+    $(".immunoassay-assembly-row").hide();
+    $(".immunoassay-parts-row").hide();
+    $(".hematology-parts-row").hide();
+    $(".edit-box").hide();
+    $(".hematology-machine-row").show();
+  });
+  $("#hematology-machine-next-btn").click(function(){
+    $(".hematology-machine-row").hide();
+    $(".hematology-assembly-row").show();
+  });
+  $("#hematology-assembly-next-btn").click(function(){
+    $(".hematology-machine-row").hide();
+    $(".hematology-assembly-row").hide();
+    $(".hematology-parts-row").show();
+  });
+});
+</script>
+<script>
+function toggle_edit (e){
+    let selected_id = $(e).attr('data');
+    $('.toggle-edit').each((c,d)=>{
+        let box_id = $(d).attr('data');
+
+        if(box_id == selected_id){
+            $('.' + box_id).toggle();
+        }else{
+            $('.' + box_id).hide();
+        }
+    })
+}
+</script>
+<script>
+    //plugin bootstrap minus and plus
+//http://jsfiddle.net/laelitenetwork/puJ6G/
+$('.btn-number').click(function(e){
+    e.preventDefault();
+    
+    fieldName = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+    var input = $("input[name='"+fieldName+"']");
+    var currentVal = parseInt(input.val());
+    if (!isNaN(currentVal)) {
+        if(type == 'minus') {
+            
+            if(currentVal > input.attr('min')) {
+                input.val(currentVal - 1).change();
+            } 
+            if(parseInt(input.val()) == input.attr('min')) {
+                $(this).attr('disabled', true);
+            }
+
+        } else if(type == 'plus') {
+
+            if(currentVal < input.attr('max')) {
+                input.val(currentVal + 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('max')) {
+                $(this).attr('disabled', true);
+            }
+
+        }
+    } else {
+        input.val(0);
+    }
+});
+$('.input-number').focusin(function(){
+   $(this).data('oldValue', $(this).val());
+});
+$('.input-number').change(function() {
+    
+    minValue =  parseInt($(this).attr('min'));
+    maxValue =  parseInt($(this).attr('max'));
+    valueCurrent = parseInt($(this).val());
+    
+    name = $(this).attr('name');
+    if(valueCurrent >= minValue) {
+        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the minimum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    if(valueCurrent <= maxValue) {
+        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the maximum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    
+    
+});
+$(".input-number").keydown(function (e) {
+    // Allow: backspace, delete, tab, escape, enter and .
+    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+         // Allow: Ctrl+A
+        (e.keyCode == 65 && e.ctrlKey === true) || 
+         // Allow: home, end, left, right
+        (e.keyCode >= 35 && e.keyCode <= 39)) {
+             // let it happen, don't do anything
+             return;
+    }
+    // Ensure that it is a number and stop the keypress
+    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        e.preventDefault();
+    }
+});
+
+
+// for editing quantity
+function edit_quantity(amount){
+    
+    let quantity = Number($('#updatepart .part-quantity').val());
+    if(amount == '1'){
+        quantity++;
+    }else if( amount == '-1' && quantity > 0 ){
+        quantity--;
+    }
+    $('#updatepart .part-quantity').val(quantity);
+    
+}
+
+function toggle_edit_modal( id , quantity ){
+    $('#updatepart .part-minus').attr('data-partId' , id);
+    $('#updatepart .part-plus').attr('data-partId' , id);
+    $('#updatepart .save-quantity').attr('data-partId' , id);
+    $('#updatepart .part-quantity').val(quantity);
+    $('#updatepart').modal('show');
+}
+
+function update_part_quantity(){
+    let partId = $('#updatepart .save-quantity').attr('data-partId');
+    let quantity = $('#updatepart .part-quantity').val();
+    let comment = $('#updatepart .commentbox').val();
+    
+    if( comment ){
+        $.post('/api/transaction' , { partId : partId , quantity : quantity , comment : comment })
+        .done( data => {
+            Swal.fire(
+              'Quantity Updated!',
+              'You have saved the quantity!',
+              'success'
+            )
+        $('.dimension-machine-row').hide();
+        $('.dimension-assembly-row').hide();
+        $('.dimension-parts-row').hide
+        $('#updatepart').modal('hide');
+        });
+    }else{
+        Swal.fire(
+              'Enter Comment!',
+              'You have missed to enter comment!',
+              'warning'
+            )
+    }
+    
+}
+</script>
+
+
+    
+    
+<script>
+    // socket script
+    var socket = io();
+    
+    socket.on('connect', function () {
+        console.log('connected');
+
+        socket.on('disconnect', function () {
+            console.log('disconnected');
+        });
+    });
+</script>
+</body>
+</html>
